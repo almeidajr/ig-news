@@ -7,13 +7,16 @@ export const Header = () => {
   return (
     <header className={styles.root}>
       <div className={styles.content}>
-        <Image
-          src="/images/logo.svg"
-          alt="ig.news logo"
-          width={110}
-          height={31}
-        />
-
+        <Link href="/">
+          <a>
+            <Image
+              src="/images/logo.svg"
+              alt="ig.news logo"
+              width={110}
+              height={31}
+            />
+          </a>
+        </Link>
         <nav>
           <Link href="/">
             <a className={styles.active}>Home</a>

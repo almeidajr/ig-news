@@ -45,7 +45,12 @@ const Home: NextPage<HomeProps> = ({ productPrice }) => (
     </section>
 
     <div className={styles.avatar}>
-      <Image src="/images/avatar.svg" alt="Girl at coding" layout="fill" />
+      <Image
+        src="/images/avatar.svg"
+        alt="Girl at coding"
+        layout="fill"
+        priority
+      />
     </div>
   </main>
 )
