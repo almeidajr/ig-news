@@ -21,7 +21,7 @@ export const Header = () => {
           <Link href="/">
             <a className={styles.active}>Home</a>
           </Link>
-          <Link href="/">
+          <Link href="/posts">
             <a>Posts</a>
           </Link>
         </nav>
