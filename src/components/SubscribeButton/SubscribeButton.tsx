@@ -1,4 +1,5 @@
 import { signIn, useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 import { api } from '../../services/api'
 import { getStripe } from '../../services/getStripe'
 import styles from './SubscribeButton.module.scss'
@@ -8,11 +9,17 @@ type SubscribeResponseData = {
 }
 
 export const SubscribeButton = () => {
-  const { status } = useSession()
+  const { data: session, status } = useSession()
+  const router = useRouter()
 
   const handleClick = async () => {
     if (status !== 'authenticated') {
       await signIn('github')
+      return
+    }
+
+    if (session?.isSubscribed) {
+      router.push('/posts')
       return
     }
 

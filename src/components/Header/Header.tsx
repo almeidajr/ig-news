@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { ActiveLink } from '../ActiveLink/ActiveLink'
 import { SignInButton } from '../SignInButton'
 import styles from './Header.module.scss'
 
@@ -17,13 +18,14 @@ export const Header = () => {
             />
           </a>
         </Link>
+
         <nav>
-          <Link href="/">
-            <a className={styles.active}>Home</a>
-          </Link>
-          <Link href="/posts">
-            <a>Posts</a>
-          </Link>
+          <ActiveLink href="/" activeClass={styles.active}>
+            Home
+          </ActiveLink>
+          <ActiveLink href="/posts" activeClass={styles.active}>
+            Posts
+          </ActiveLink>
         </nav>
 
         <SignInButton />

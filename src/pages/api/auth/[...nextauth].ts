@@ -38,5 +38,40 @@ export default NextAuth({
 
       return true
     },
+    session: async ({ session }) => {
+      const { user } = session
+      if (!user) {
+        return session
+      }
+
+      try {
+        const subscription = await fauna.query(
+          query.Get(
+            query.Intersection([
+              query.Match(
+                query.Index('subscription_by_user_ref'),
+                query.Select(
+                  'ref',
+                  query.Get(
+                    query.Match(
+                      query.Index('user_by_email'),
+                      query.Casefold(user.email!),
+                    ),
+                  ),
+                ),
+              ),
+              query.Match(query.Index('subscription_by_status'), 'active'),
+            ]),
+          ),
+        )
+
+        return { ...session, isSubscribed: !!subscription }
+      } catch (error) {
+        if (error instanceof Error) {
+          console.error(`❌ Check subscription error ${error.message}`)
+        }
+        return { ...session, isSubscribed: false }
+      }
+    },
   },
 })
